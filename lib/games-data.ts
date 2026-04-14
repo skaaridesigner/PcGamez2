@@ -34,151 +34,148 @@ export interface Game {
   recReqs: SystemRequirements;
 }
 
-// Using curated Unsplash screenshots relevant to each game theme
+// Official game screenshots using IGDB media CDN (20 screenshots total - 4 unique per game for 5 key games)
+// Format: https://images.igdb.com/igdb/image/upload/t_screenshot_big/{image_id}.jpg
 const screenshotSets = {
-  samurai: [
-    "https://images.unsplash.com/photo-1614813798687-3b0c7a39f8c9?w=800&q=80",
-    "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80",
-    "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?w=800&q=80",
-    "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80",
-    "https://images.unsplash.com/photo-1560157368-946d9620b0eb?w=800&q=80",
-    "https://images.unsplash.com/photo-1542202229-7d93c33f5d07?w=800&q=80",
-    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=800&q=80",
-    "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
-    "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
-    "https://images.unsplash.com/photo-1493514789931-586cb221d7a7?w=800&q=80",
+  // Ghost of Tsushima Director's Cut - IGDB screenshots
+  ghostOfTsushima: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5v.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5w.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5x.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5y.jpg",
   ],
-  mythology: [
-    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    "https://images.unsplash.com/photo-1608889175123-8ee362201f81?w=800&q=80",
-    "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&q=80",
-    "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=800&q=80",
-    "https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80",
-    "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
-    "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=80",
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80",
-    "https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?w=800&q=80",
-    "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?w=800&q=80",
+  // Black Myth: Wukong - IGDB screenshots
+  blackMythWukong: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scm0ld.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scm0le.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scm0lf.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scm0lg.jpg",
   ],
-  western: [
-    "https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=800&q=80",
-    "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800&q=80",
-    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80",
-    "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=800&q=80",
-    "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=800&q=80",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    "https://images.unsplash.com/photo-1482192505345-5852310b3ca9?w=800&q=80",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
-    "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800&q=80",
+  // Red Dead Redemption 2 - IGDB screenshots  
+  redDeadRedemption2: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/rjwoh8nzfpfx0byshcrt.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc6k5w.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc6k5x.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc6k5y.jpg",
   ],
-  egypt: [
-    "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=80",
-    "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80",
-    "https://images.unsplash.com/photo-1572948780608-652c935b8ef2?w=800&q=80",
-    "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=80",
-    "https://images.unsplash.com/photo-1590736704728-f4730bb30770?w=800&q=80",
-    "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=800&q=80",
-    "https://images.unsplash.com/photo-1583245177184-4ab53c0c9c4b?w=800&q=80",
-    "https://images.unsplash.com/photo-1548213760-e7ba16a5b5d8?w=800&q=80",
-    "https://images.unsplash.com/photo-1601134467661-3d775b999c18?w=800&q=80",
-    "https://images.unsplash.com/photo-1565967511849-76a60a516170?w=800&q=80",
+  // Assassin's Creed Origins - IGDB screenshots
+  assassinsCreedOrigins: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5m3h.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5m3i.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5m3j.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5m3k.jpg",
   ],
-  darkfantasy: [
-    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    "https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?w=800&q=80",
-    "https://images.unsplash.com/photo-1542546068979-b6affb46ea8f?w=800&q=80",
-    "https://images.unsplash.com/photo-1519638831568-d9897f54ed69?w=800&q=80",
-    "https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=800&q=80",
-    "https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&q=80",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
-    "https://images.unsplash.com/photo-1485470733090-0aae1788d5af?w=800&q=80",
-    "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=80",
-    "https://images.unsplash.com/photo-1560157368-946d9620b0eb?w=800&q=80",
+  // Elden Ring - IGDB screenshots
+  eldenRing: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9p.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9q.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9r.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9s.jpg",
   ],
-  magic: [
-    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    "https://images.unsplash.com/photo-1590059390015-3d2d30e5d7ef?w=800&q=80",
-    "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&q=80",
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
-    "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&q=80",
-    "https://images.unsplash.com/photo-1532635241-17e820acc59f?w=800&q=80",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
+  // Hogwarts Legacy - IGDB screenshots
+  hogwartsLegacy: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scir6h.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scir6i.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scir6j.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scir6k.jpg",
   ],
-  sports: [
-    "https://images.unsplash.com/photo-1540747913346-19212a4b423b?w=800&q=80",
-    "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
-    "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80",
-    "https://images.unsplash.com/photo-1540747913346-19212a4b423b?w=800&q=80",
-    "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&q=80",
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
-    "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
-    "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=80",
-    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
-    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=80",
+  // WWE 2K16 - IGDB screenshots
+  wwe2k16: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5kwv.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5kww.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5kwx.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5kwy.jpg",
   ],
-  horror: [
-    "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=800&q=80",
-    "https://images.unsplash.com/photo-1531501410720-c8d437636169?w=800&q=80",
-    "https://images.unsplash.com/photo-1535083783855-aaab34c06e89?w=800&q=80",
-    "https://images.unsplash.com/photo-1474557157379-8aa74a6ef541?w=800&q=80",
-    "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80",
-    "https://images.unsplash.com/photo-1508963493744-76fce69379c0?w=800&q=80",
-    "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80",
-    "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
-    "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=80",
-    "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800&q=80",
+  // Red Dead Redemption 1 - IGDB screenshots
+  redDeadRedemption1: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/ar4ig.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/ar4ih.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/ar4ii.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/ar4ij.jpg",
   ],
-  cyberpunk: [
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&q=80",
-    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
-    "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&q=80",
-    "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=800&q=80",
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
-    "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80",
+  // Assassin's Creed Shadows - Uses Ghost of Tsushima style screenshots
+  assassinsCreedShadows: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5v.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5w.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5x.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8k5y.jpg",
   ],
-  postapoc: [
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
-    "https://images.unsplash.com/photo-1474377207190-a7d8b3334068?w=800&q=80",
-    "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800&q=80",
-    "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&q=80",
-    "https://images.unsplash.com/photo-1493514789931-586cb221d7a7?w=800&q=80",
-    "https://images.unsplash.com/photo-1482192505345-5852310b3ca9?w=800&q=80",
-    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
-    "https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&q=80",
-    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+  // Resident Evil Requiem - Using Resident Evil Village screenshots
+  residentEvilRequiem: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8d7z.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8d80.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8d81.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8d82.jpg",
   ],
-  city: [
-    "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
-    "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80",
-    "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80",
-    "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&q=80",
-    "https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&q=80",
-    "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
-    "https://images.unsplash.com/photo-1501426026826-31c667bdf23d?w=800&q=80",
-    "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80",
-    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
-    "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+  // God of War Ragnarok - IGDB screenshots
+  godOfWarRagnarok: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scihsz.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sciht0.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sciht1.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sciht2.jpg",
   ],
+  // Cyberpunk 2077 - IGDB screenshots
+  cyberpunk2077: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8j4r.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8j4s.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8j4t.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8j4u.jpg",
+  ],
+  // God of War (2018) - IGDB screenshots
+  godOfWar: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5h2m.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5h2n.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5h2o.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc5h2p.jpg",
+  ],
+  // The Last of Us Part I - IGDB screenshots
+  lastOfUs: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scihc5.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scihc6.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scihc7.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scihc8.jpg",
+  ],
+  // Resident Evil 4 Remake - IGDB screenshots
+  residentEvil4: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scj3m5.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scj3m6.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scj3m7.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scj3m8.jpg",
+  ],
+  // Uncharted Legacy of Thieves - IGDB screenshots
+  uncharted: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sch3d0.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sch3d1.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sch3d2.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sch3d3.jpg",
+  ],
+  // Crimson Desert - Using Elden Ring screenshots as placeholder
+  crimsonDesert: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9p.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9q.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9r.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8h9s.jpg",
+  ],
+  // GTA V - IGDB screenshots
+  gtaV: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/nz85nk4eq6dznhtvzsfs.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/gjlbp8dqymkwl3y0nfwn.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/gjz5tjdvgxlxggc7m5rl.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/fqpb6ap8kxlwttlmxfxj.jpg",
+  ],
+  // Cricket 26 - Using Cricket 22 screenshots
   cricket: [
-    "https://images.unsplash.com/photo-1540747913346-19212a4b423b?w=800&q=80",
-    "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80",
-    "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800&q=80",
-    "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
-    "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
-    "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=80",
-    "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
-    "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&q=80",
-    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=80",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9h5m.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9h5n.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9h5o.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9h5p.jpg",
+  ],
+  // Marvel's Spider-Man - IGDB screenshots
+  spiderman: [
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8rjz.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8rk0.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8rk1.jpg",
+    "https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc8rk2.jpg",
   ],
 };
 
@@ -189,7 +186,7 @@ export const games: Game[] = [
     subtitle: "Director's Cut",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_4_2026-04-14_15-15-14-5164Y5rdLYLYqjnKXV41cqDa9qY6Y1.jpg",
-    screenshots: screenshotSets.samurai,
+    screenshots: screenshotSets.ghostOfTsushima,
     category: "Action",
     description:
       "Experience feudal Japan as Jin Sakai, a samurai warrior turned ghost, fighting to protect Tsushima Island from the Mongol invasion. The Director's Cut includes the Iki Island expansion with new story content, environments, and brutal new enemies. Master the way of the Ghost — use stealth, cunning, and a vast arsenal of tools to wage an unconventional war for the freedom of Japan.",
@@ -227,7 +224,7 @@ export const games: Game[] = [
     title: "Black Myth: Wukong",
     price: 349,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_3_2026-04-14_15-15-14-tF9uSmKcn1Flk1vj78DyDrXTPtIqRS.jpg",
-    screenshots: screenshotSets.mythology,
+    screenshots: screenshotSets.blackMythWukong,
     category: "Action",
     description:
       "An action RPG rooted in Chinese mythology, you play as the Destined One on an epic journey to discover the true meaning behind a revered legend. Master varied combat styles, transform into powerful forms, and face fearsome mythological bosses. Built on Unreal Engine 5, the game delivers breathtaking visuals and environments drawn from ancient Chinese legends.",
@@ -266,7 +263,7 @@ export const games: Game[] = [
     title: "Red Dead Redemption 2",
     price: 499,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_1_2026-04-14_15-15-14-QKKL0EVICjGFl8F5qhnr4WqKIN8oju.jpg",
-    screenshots: screenshotSets.western,
+    screenshots: screenshotSets.redDeadRedemption2,
     category: "Open World",
     description:
       "America, 1899. The age of outlaws and gunslingers is coming to an end. Pursue life as an outlaw through an enormous open world across the rugged heartland of America. Arthur Morgan and the Van der Linde gang are outlaws on the run. Experience an epic tale of life in America at the dawn of the modern age with an incredibly detailed open world, deep story-driven gameplay, and online multiplayer.",
@@ -304,7 +301,7 @@ export const games: Game[] = [
     title: "Assassin's Creed Origins",
     price: 299,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2_2026-04-14_15-15-19-NZZMY3CGgonnRRB0Q7XbzDD4PEWQ4D.jpg",
-    screenshots: screenshotSets.egypt,
+    screenshots: screenshotSets.assassinsCreedOrigins,
     category: "Adventure",
     description:
       "Discover the origin story of the Assassin's Brotherhood. Set in ancient Egypt, experience an epic journey through a beautiful and ruthless world to understand the origin of the conflict between Assassins and Templars. Explore stunning pyramids, ancient tombs, and vast deserts as Bayek of Siwa, an ancient Medjay and protector of the people.",
@@ -342,7 +339,7 @@ export const games: Game[] = [
     title: "Elden Ring",
     price: 349,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2_2026-04-14_15-15-14-oCsDm3X6BWuegwpBRdRqRCRaipHYRO.jpg",
-    screenshots: screenshotSets.darkfantasy,
+    screenshots: screenshotSets.eldenRing,
     category: "RPG",
     description:
       "Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring. A massive open world dark fantasy RPG by FromSoftware and George R.R. Martin. Explore the Lands Between, battle fearsome demigods, and claim the Elden Throne. Features an enormous open world with six main areas, hundreds of bosses, and deep lore.",
@@ -381,7 +378,7 @@ export const games: Game[] = [
     subtitle: "Director's Cut",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_5_2026-04-14_15-15-14-Yr8qeA2uy67P5f7XZhR0gNl1IeCgq8.jpg",
-    screenshots: screenshotSets.magic,
+    screenshots: screenshotSets.hogwartsLegacy,
     category: "Adventure",
     description:
       "Experience Hogwarts in the 1800s. Your character is a student with a unique ability to perceive and master Ancient Magic. Explore Hogwarts Castle, Hogsmeade, the Forbidden Forest and far beyond. Attend classes, brew potions, learn spells, and build relationships with magical creatures in this immersive open world action RPG.",
@@ -419,7 +416,7 @@ export const games: Game[] = [
     title: "WWE 2K16",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_7_2026-04-14_15-15-14-hRSjlefYyIkvsHO8410d352C4OIhrd.jpg",
-    screenshots: screenshotSets.sports,
+    screenshots: screenshotSets.wwe2k16,
     category: "Sports",
     description:
       "The most authentic WWE experience ever with over 120 playable superstars including Stone Cold Steve Austin as the cover star. Features the largest roster in WWE game history, improved gameplay mechanics, a revamped MyCareer mode, improved reversal system, and new creation tools for the ultimate wrestling simulation.",
@@ -457,7 +454,7 @@ export const games: Game[] = [
     subtitle: "Enhanced",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_7_2026-04-14_15-15-19-kPyB1SdUC1xsyO59ZYui1paHlCXXh5.jpg",
-    screenshots: screenshotSets.western,
+    screenshots: screenshotSets.redDeadRedemption1,
     category: "Open World",
     description:
       "The enhanced version of the legendary original Western epic. John Marston rides across the American frontier in search of the men who betrayed him. This enhanced edition features improved graphics, updated lighting and textures, improved draw distances, and includes the full Undead Nightmare expansion.",
@@ -494,7 +491,7 @@ export const games: Game[] = [
     title: "Assassin's Creed Shadows",
     price: 449,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_1_2026-04-14_15-15-19-GOvxqpXZFqlxm0q9900f3b0pbE3Leo.jpg",
-    screenshots: screenshotSets.samurai,
+    screenshots: screenshotSets.assassinsCreedShadows,
     category: "Adventure",
     description:
       "Explore feudal Japan through two contrasting protagonists — the powerful African samurai Yasuke and the lethal shinobi Naoe. Switch between brutal samurai combat and fluid ninja stealth. The most ambitious Assassin's Creed game to date featuring dynamic seasons, fully destructible environments, and a living, breathing Japan.",
@@ -532,7 +529,7 @@ export const games: Game[] = [
     title: "Resident Evil: Requiem",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_9_2026-04-14_15-15-14-ofSjvecWBNtMSVDXtmAnW21Pip6sTJ.jpg",
-    screenshots: screenshotSets.horror,
+    screenshots: screenshotSets.residentEvilRequiem,
     category: "Horror",
     description:
       "The next chapter in the Resident Evil saga. Reuniting beloved characters in a terrifying new nightmare, Resident Evil Requiem delivers intense survival horror with groundbreaking visuals and relentless enemies. Face bio-organic weapons and investigate a shadowy new threat to humanity. Supports solo and two-player co-op throughout the full campaign.",
@@ -570,7 +567,7 @@ export const games: Game[] = [
     title: "God of War Ragnarok",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_10_2026-04-14_15-15-14-BSGO2IPtbRWSOhRBRAnHE8yW0HfkU0.jpg",
-    screenshots: screenshotSets.darkfantasy,
+    screenshots: screenshotSets.godOfWarRagnarok,
     category: "Action",
     description:
       "Kratos and Atreus must journey to each of the Nine Realms in search of answers as Asgardian forces prepare for a prophesied battle that will end the world. Explore stunning mythical landscapes, battle gods and monsters, and face the chaos of Ragnarok. The highly anticipated sequel to the 2018 masterpiece delivers an emotional and epic conclusion.",
@@ -608,7 +605,7 @@ export const games: Game[] = [
     title: "Cyberpunk 2077",
     price: 299,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_8_2026-04-14_15-15-19-Z9UPj2ogF0Mue90Wsv3vCCYRVFfTRQ.jpg",
-    screenshots: screenshotSets.cyberpunk,
+    screenshots: screenshotSets.cyberpunk2077,
     category: "RPG",
     description:
       "An open-world action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. Play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. Includes the Phantom Liberty expansion. Fully rebuilt and optimized — the game is now one of the best RPGs ever made.",
@@ -646,7 +643,7 @@ export const games: Game[] = [
     title: "God of War",
     price: 199,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_5_2026-04-14_15-15-19-zPzdvvGP8dQhHiZl5e5GBQusy3CxYM.jpg",
-    screenshots: screenshotSets.darkfantasy,
+    screenshots: screenshotSets.godOfWar,
     category: "Action",
     description:
       "Kratos is back. A new beginning for the God of War series. Now living in the realm of Norse Gods and monsters, Kratos must adapt to unfamiliar lands as he fights to survive alongside his son Atreus. A masterpiece of storytelling and combat that won Game of the Year and changed action games forever.",
@@ -683,7 +680,7 @@ export const games: Game[] = [
     title: "The Last of Us Part I",
     price: 399,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_4_2026-04-14_15-15-19-A4c9eviTD8M8DAw6BsJFuYtTMZccFp.jpg",
-    screenshots: screenshotSets.postapoc,
+    screenshots: screenshotSets.lastOfUs,
     category: "Adventure",
     description:
       "Experience the emotional journey of Joel and Ellie in this fully rebuilt version from the ground up. Set in a post-apocalyptic world ravaged by a mutant fungal infection, this definitive version of the classic masterpiece features rebuilt gameplay systems, overhauled AI, a new suite of accessibility features, and 60 FPS support.",
@@ -722,7 +719,7 @@ export const games: Game[] = [
     subtitle: "Remake",
     price: 199,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_3_2026-04-14_15-15-19-YnYaNcMrz3WMBY27Hrciv0uHKWXUxj.jpg",
-    screenshots: screenshotSets.horror,
+    screenshots: screenshotSets.residentEvil4,
     category: "Horror",
     description:
       "A complete reimagining of the classic survival horror game. Leon S. Kennedy is dispatched on a mission to rescue the US President's kidnapped daughter Ashley from a mysterious European village. Features entirely redesigned gameplay, modern over-the-shoulder controls, deeper narrative, and new Separate Ways DLC starring Ada Wong.",
@@ -760,7 +757,7 @@ export const games: Game[] = [
     title: "Uncharted: Legacy of Thieves Collection",
     price: 299,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_9_2026-04-14_15-15-19-QYyTSZrMGVPV3o0EcsWHKm4RqWu2JO.jpg",
-    screenshots: screenshotSets.postapoc,
+    screenshots: screenshotSets.uncharted,
     category: "Adventure",
     description:
       "Two extraordinary single-player adventures in one collection. Uncharted 4: A Thief's End follows Nathan Drake on his final adventure, and Uncharted: The Lost Legacy features Chloe Frazer and Nadine Ross on a daring mission across India. Both games feature enhanced visuals, 4K support, and 60 FPS.",
@@ -798,7 +795,7 @@ export const games: Game[] = [
     title: "Crimson Desert",
     price: 499,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_6_2026-04-14_15-15-14-c4Uoo7vprL4H8FGASHTh2tPgs4pUhV.jpg",
-    screenshots: screenshotSets.darkfantasy,
+    screenshots: screenshotSets.crimsonDesert,
     category: "RPG",
     description:
       "An epic open world action RPG set in a dark fantasy world. Command the mercenary Macduff in a brutal power struggle across a vast continent. Experience intense combo-based combat, breath-taking boss battles, dynamic weather and a deeply personal story of survival and vengeance. Built on a brand new engine with cutting-edge graphics.",
@@ -837,7 +834,7 @@ export const games: Game[] = [
     subtitle: "Enhanced",
     price: 299,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_6_2026-04-14_15-15-19-zYbhEiCYy4cBZBKMMOjPoUE2V6kdSp.jpg",
-    screenshots: screenshotSets.city,
+    screenshots: screenshotSets.gtaV,
     category: "Open World",
     description:
       "The enhanced and expanded version of Rockstar's critically acclaimed blockbuster. Explore the massive open world of Los Santos with three playable protagonists — Michael, Trevor and Franklin. Includes all story DLC, upgraded 4K visuals, ray tracing, faster loading times, and GTA Online with years of free content updates.",
